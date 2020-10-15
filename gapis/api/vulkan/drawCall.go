@@ -14,7 +14,7 @@
 
 package vulkan
 
-import "github.com/google/gapid/gapis/api"
+import "github.com/google/agi/gapis/api"
 
 // A placeholder interface for draw calls to conform the DrawCall annotation in
 // API files. In Vulkan, all the drawing actually happens in the execution of

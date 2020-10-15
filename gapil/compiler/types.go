@@ -15,10 +15,10 @@
 package compiler
 
 import (
-	"github.com/google/gapid/core/codegen"
-	"github.com/google/gapid/core/os/device"
-	"github.com/google/gapid/gapil/compiler/mangling"
-	"github.com/google/gapid/gapil/semantic"
+	"github.com/google/agi/core/codegen"
+	"github.com/google/agi/core/os/device"
+	"github.com/google/agi/gapil/compiler/mangling"
+	"github.com/google/agi/gapil/semantic"
 )
 
 //#include "gapil/runtime/cc/runtime.h"

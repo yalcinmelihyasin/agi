@@ -22,8 +22,8 @@ import (
 	"fmt"
 	"unsafe"
 
-	"github.com/google/gapid/core/codegen"
-	"github.com/google/gapid/gapil/compiler"
+	"github.com/google/agi/core/codegen"
+	"github.com/google/agi/gapil/compiler"
 )
 
 // Executor is used to create execution environments for a compiled program.

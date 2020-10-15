@@ -22,14 +22,14 @@ import (
 	"os"
 	"strings"
 
-	"github.com/google/gapid/core/app"
-	"github.com/google/gapid/core/os/device"
-	"github.com/google/gapid/core/os/file"
-	"github.com/google/gapid/gapil/compiler"
-	"github.com/google/gapid/gapil/compiler/mangling/c"
-	"github.com/google/gapid/gapil/compiler/mangling/ia64"
-	"github.com/google/gapid/gapil/compiler/plugins/encoder"
-	"github.com/google/gapid/gapil/resolver"
+	"github.com/google/agi/core/app"
+	"github.com/google/agi/core/os/device"
+	"github.com/google/agi/core/os/file"
+	"github.com/google/agi/gapil/compiler"
+	"github.com/google/agi/gapil/compiler/mangling/c"
+	"github.com/google/agi/gapil/compiler/mangling/ia64"
+	"github.com/google/agi/gapil/compiler/plugins/encoder"
+	"github.com/google/agi/gapil/resolver"
 )
 
 func init() {

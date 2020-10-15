@@ -17,8 +17,8 @@ package compiler
 import (
 	"fmt"
 
-	"github.com/google/gapid/core/codegen"
-	"github.com/google/gapid/gapil/semantic"
+	"github.com/google/agi/core/codegen"
+	"github.com/google/agi/gapil/semantic"
 )
 
 func (c *C) callExtern(s *S, e *semantic.Call) *codegen.Value {

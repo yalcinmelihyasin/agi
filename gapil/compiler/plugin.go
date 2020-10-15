@@ -17,8 +17,8 @@ package compiler
 import (
 	"reflect"
 
-	"github.com/google/gapid/core/codegen"
-	"github.com/google/gapid/gapil/semantic"
+	"github.com/google/agi/core/codegen"
+	"github.com/google/agi/gapil/semantic"
 )
 
 // Plugin is a extension for the compiler.

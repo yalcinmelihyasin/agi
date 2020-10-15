@@ -17,11 +17,11 @@ package image
 import (
 	"bytes"
 
-	"github.com/google/gapid/core/data/endian"
-	"github.com/google/gapid/core/math/sint"
-	"github.com/google/gapid/core/math/u64"
-	"github.com/google/gapid/core/os/device"
-	"github.com/google/gapid/core/stream"
+	"github.com/google/agi/core/data/endian"
+	"github.com/google/agi/core/math/sint"
+	"github.com/google/agi/core/math/u64"
+	"github.com/google/agi/core/os/device"
+	"github.com/google/agi/core/stream"
 )
 
 var (

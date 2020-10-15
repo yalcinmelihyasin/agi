@@ -17,10 +17,10 @@ package c_test
 import (
 	"testing"
 
-	"github.com/google/gapid/core/assert"
-	"github.com/google/gapid/core/log"
-	"github.com/google/gapid/gapil/compiler/mangling"
-	"github.com/google/gapid/gapil/compiler/mangling/c"
+	"github.com/google/agi/core/assert"
+	"github.com/google/agi/core/log"
+	"github.com/google/agi/gapil/compiler/mangling"
+	"github.com/google/agi/gapil/compiler/mangling/c"
 )
 
 func TestC(t *testing.T) {

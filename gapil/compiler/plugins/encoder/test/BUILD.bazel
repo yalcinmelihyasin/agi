@@ -53,7 +53,7 @@ go_library(
     ],
     cgo = True,
     cppopts = cc_copts(),
-    importpath = "github.com/google/gapid/gapil/compiler/plugins/encoder/test",
+    importpath = "github.com/google/agi/gapil/compiler/plugins/encoder/test",
     visibility = ["//visibility:public"],
     deps = [
         "//core/memory/arena:go_default_library",

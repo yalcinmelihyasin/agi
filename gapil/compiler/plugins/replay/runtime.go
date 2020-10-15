@@ -19,9 +19,9 @@ import (
 	"reflect"
 	"unsafe"
 
-	"github.com/google/gapid/core/data/slice"
-	"github.com/google/gapid/gapil/executor"
-	replaysrv "github.com/google/gapid/gapir/replay_service"
+	"github.com/google/agi/core/data/slice"
+	"github.com/google/agi/gapil/executor"
+	replaysrv "github.com/google/agi/gapir/replay_service"
 )
 
 // #include "gapil/runtime/cc/replay/replay.h"

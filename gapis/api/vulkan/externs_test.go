@@ -17,11 +17,11 @@ package vulkan
 import (
 	"testing"
 
-	"github.com/google/gapid/core/log"
-	"github.com/google/gapid/core/memory/arena"
-	"github.com/google/gapid/core/os/device"
-	"github.com/google/gapid/gapis/api"
-	"github.com/google/gapid/gapis/memory"
+	"github.com/google/agi/core/log"
+	"github.com/google/agi/core/memory/arena"
+	"github.com/google/agi/core/os/device"
+	"github.com/google/agi/gapis/api"
+	"github.com/google/agi/gapis/memory"
 )
 
 func TestCallReflectedCommand(t *testing.T) {

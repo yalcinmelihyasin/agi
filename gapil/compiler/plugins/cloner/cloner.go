@@ -19,9 +19,9 @@ package cloner
 import (
 	"fmt"
 
-	"github.com/google/gapid/core/codegen"
-	"github.com/google/gapid/gapil/compiler"
-	"github.com/google/gapid/gapil/semantic"
+	"github.com/google/agi/core/codegen"
+	"github.com/google/agi/gapil/compiler"
+	"github.com/google/agi/gapil/semantic"
 )
 
 // cloner is the compiler plugin that adds cloning functionality.

@@ -22,7 +22,7 @@ package compiler
 import (
 	"sort"
 
-	"github.com/google/gapid/core/codegen"
+	"github.com/google/agi/core/codegen"
 )
 
 // buildModule builds the output module definition.

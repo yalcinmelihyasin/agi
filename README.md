@@ -1,7 +1,7 @@
 # Android GPU Inspector
 
 <!-- TODO(b/155159330) Once we reach a stable release, re-enabled godoc and switch to pkg.go.dev, see https://go.dev/about#adding-a-package -->
-<!-- [![GoDoc](https://godoc.org/github.com/google/gapid?status.svg)](https://godoc.org/github.com/google/gapid) -->
+<!-- [![GoDoc](https://godoc.org/github.com/google/agi?status.svg)](https://godoc.org/github.com/google/agi) -->
 ![]() <!-- Empty image needed to have the markdown parser correctly parse the following lines -->
 <img alt="Linux" src="kokoro/img/linux.png" width="20px" height="20px" hspace="2px"/>
 [![Linux Build Status](https://agi-build.storage.googleapis.com/badges/build_status_linux.svg)](https://agi-build.storage.googleapis.com/badges/build_result_linux.html)

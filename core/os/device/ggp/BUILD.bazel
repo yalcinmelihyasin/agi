@@ -21,7 +21,7 @@ go_library(
         "doc.go",
         "parse.go",
     ],
-    importpath = "github.com/google/gapid/core/os/device/ggp",
+    importpath = "github.com/google/agi/core/os/device/ggp",
     visibility = ["//visibility:public"],
     deps = [
         "//core/event/task:go_default_library",

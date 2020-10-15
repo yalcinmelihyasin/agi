@@ -17,7 +17,7 @@ package testutils
 import (
 	"unsafe"
 
-	"github.com/google/gapid/gapil/executor"
+	"github.com/google/agi/gapil/executor"
 )
 
 //#include "gapil/runtime/cc/runtime.h"

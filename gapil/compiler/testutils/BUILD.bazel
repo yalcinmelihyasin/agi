@@ -27,7 +27,7 @@ go_library(
     ],
     cgo = True,
     clinkopts = [],  # keep
-    importpath = "github.com/google/gapid/gapil/compiler/testutils",
+    importpath = "github.com/google/agi/gapil/compiler/testutils",
     visibility = ["//visibility:public"],
     deps = [
         "//core/data/binary:go_default_library",

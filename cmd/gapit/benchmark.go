@@ -30,17 +30,17 @@ import (
 	"text/tabwriter"
 	"time"
 
-	"github.com/google/gapid/core/app"
-	"github.com/google/gapid/core/app/status"
-	"github.com/google/gapid/core/event/task"
-	img "github.com/google/gapid/core/image"
-	"github.com/google/gapid/core/log"
-	"github.com/google/gapid/core/os/device"
-	"github.com/google/gapid/gapis/api"
-	"github.com/google/gapid/gapis/client"
-	"github.com/google/gapid/gapis/service"
-	"github.com/google/gapid/gapis/service/path"
-	"github.com/google/gapid/gapis/stringtable"
+	"github.com/google/agi/core/app"
+	"github.com/google/agi/core/app/status"
+	"github.com/google/agi/core/event/task"
+	img "github.com/google/agi/core/image"
+	"github.com/google/agi/core/log"
+	"github.com/google/agi/core/os/device"
+	"github.com/google/agi/gapis/api"
+	"github.com/google/agi/gapis/client"
+	"github.com/google/agi/gapis/service"
+	"github.com/google/agi/gapis/service/path"
+	"github.com/google/agi/gapis/stringtable"
 )
 
 type benchmarkVerb struct {

@@ -15,8 +15,8 @@
 package compiler
 
 import (
-	"github.com/google/gapid/core/codegen"
-	"github.com/google/gapid/gapil/compiler/mangling"
+	"github.com/google/agi/core/codegen"
+	"github.com/google/agi/gapil/compiler/mangling"
 )
 
 func (c *C) mangleInt(size int32, signed bool, name string) mangling.Type {

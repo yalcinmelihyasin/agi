@@ -15,7 +15,7 @@
 package codegen
 
 import (
-	"github.com/google/gapid/core/os/device"
+	"github.com/google/agi/core/os/device"
 )
 
 // DataLayout returns an LLVM data layout string for the given ABI, or an empty

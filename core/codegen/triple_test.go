@@ -17,10 +17,10 @@ package codegen_test
 import (
 	"testing"
 
-	"github.com/google/gapid/core/assert"
-	"github.com/google/gapid/core/codegen"
-	"github.com/google/gapid/core/log"
-	"github.com/google/gapid/core/os/device"
+	"github.com/google/agi/core/assert"
+	"github.com/google/agi/core/codegen"
+	"github.com/google/agi/core/log"
+	"github.com/google/agi/core/os/device"
 )
 
 func TestTargetTriple(t *testing.T) {

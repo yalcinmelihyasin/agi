@@ -25,7 +25,7 @@ import (
 	"syscall"
 	"unsafe"
 
-	"github.com/google/gapid/gapis/perfetto"
+	"github.com/google/agi/gapis/perfetto"
 )
 
 // ListExecutables returns the executables in a particular directory as given by path

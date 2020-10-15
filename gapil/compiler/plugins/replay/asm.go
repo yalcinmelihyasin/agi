@@ -18,9 +18,9 @@ package replay
 import "C"
 
 import (
-	"github.com/google/gapid/core/codegen"
-	"github.com/google/gapid/gapil/compiler"
-	"github.com/google/gapid/gapil/semantic"
+	"github.com/google/agi/core/codegen"
+	"github.com/google/agi/gapil/compiler"
+	"github.com/google/agi/gapil/semantic"
 )
 
 // asm holds the types used to build the replay instructions.

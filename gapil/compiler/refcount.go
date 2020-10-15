@@ -19,10 +19,10 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/google/gapid/core/codegen"
-	"github.com/google/gapid/core/log"
-	"github.com/google/gapid/gapil/compiler/mangling"
-	"github.com/google/gapid/gapil/semantic"
+	"github.com/google/agi/core/codegen"
+	"github.com/google/agi/core/log"
+	"github.com/google/agi/gapil/compiler/mangling"
+	"github.com/google/agi/gapil/semantic"
 )
 
 type refRel struct {

@@ -31,7 +31,7 @@ go_library(
     ],
     cgo = True,
     clinkopts = [],  # keep
-    importpath = "github.com/google/gapid/gapil/executor",
+    importpath = "github.com/google/agi/gapil/executor",
     visibility = ["//visibility:public"],
     deps = [
         "//core/codegen:go_default_library",

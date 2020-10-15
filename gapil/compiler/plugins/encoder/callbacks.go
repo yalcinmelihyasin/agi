@@ -14,7 +14,7 @@
 
 package encoder
 
-import "github.com/google/gapid/core/codegen"
+import "github.com/google/agi/core/codegen"
 
 //#define QUOTE(x) #x
 //#define DECL_GAPIL_ENCODER_CB(RETURN, NAME, ...) \

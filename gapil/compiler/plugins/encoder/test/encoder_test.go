@@ -20,12 +20,12 @@ import (
 	"testing"
 
 	"github.com/golang/protobuf/proto"
-	"github.com/google/gapid/core/assert"
-	"github.com/google/gapid/core/data/protoutil"
-	"github.com/google/gapid/core/log"
-	"github.com/google/gapid/gapis/memory/memory_pb"
+	"github.com/google/agi/core/assert"
+	"github.com/google/agi/core/data/protoutil"
+	"github.com/google/agi/core/log"
+	"github.com/google/agi/gapis/memory/memory_pb"
 
-	pb "github.com/google/gapid/gapil/compiler/plugins/encoder/test/encoder_pb"
+	pb "github.com/google/agi/gapil/compiler/plugins/encoder/test/encoder_pb"
 )
 
 func checkCallbacks(ctx context.Context, name string, got, expected callbacks) {

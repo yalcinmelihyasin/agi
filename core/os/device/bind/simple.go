@@ -20,10 +20,10 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/google/gapid/core/app"
-	"github.com/google/gapid/core/fault"
-	"github.com/google/gapid/core/os/device"
-	"github.com/google/gapid/core/os/shell"
+	"github.com/google/agi/core/app"
+	"github.com/google/agi/core/fault"
+	"github.com/google/agi/core/os/device"
+	"github.com/google/agi/core/os/shell"
 )
 
 // Simple is a very short implementation of the Device interface.

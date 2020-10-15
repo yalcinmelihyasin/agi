@@ -17,7 +17,7 @@ package executor
 import (
 	"fmt"
 
-	"github.com/google/gapid/gapis/api"
+	"github.com/google/agi/gapis/api"
 )
 
 type Encodable interface {

@@ -19,14 +19,14 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/google/gapid/core/log"
-	"github.com/google/gapid/core/math/interval"
-	"github.com/google/gapid/gapis/api"
-	"github.com/google/gapid/gapis/capture"
-	"github.com/google/gapid/gapis/database"
-	"github.com/google/gapid/gapis/resolve/cmdgrouper"
-	"github.com/google/gapid/gapis/service"
-	"github.com/google/gapid/gapis/service/path"
+	"github.com/google/agi/core/log"
+	"github.com/google/agi/core/math/interval"
+	"github.com/google/agi/gapis/api"
+	"github.com/google/agi/gapis/capture"
+	"github.com/google/agi/gapis/database"
+	"github.com/google/agi/gapis/resolve/cmdgrouper"
+	"github.com/google/agi/gapis/service"
+	"github.com/google/agi/gapis/service/path"
 )
 
 // CmdGroupData is the additional metadata assigned to api.CmdIDGroups UserData

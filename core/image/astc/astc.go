@@ -24,7 +24,7 @@ import "C"
 import (
 	"unsafe"
 
-	"github.com/google/gapid/core/image"
+	"github.com/google/agi/core/image"
 )
 
 var (

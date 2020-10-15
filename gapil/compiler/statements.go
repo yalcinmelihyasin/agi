@@ -18,11 +18,11 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/google/gapid/core/codegen"
-	"github.com/google/gapid/core/log"
-	"github.com/google/gapid/core/text/parse/cst"
-	"github.com/google/gapid/gapil/ast"
-	"github.com/google/gapid/gapil/semantic"
+	"github.com/google/agi/core/codegen"
+	"github.com/google/agi/core/log"
+	"github.com/google/agi/core/text/parse/cst"
+	"github.com/google/agi/gapil/ast"
+	"github.com/google/agi/gapil/semantic"
 )
 
 // LoadParameters loads the command's parameters from the context's arguments

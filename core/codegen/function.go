@@ -19,7 +19,7 @@ import (
 
 	"llvm/bindings/go/llvm"
 
-	"github.com/google/gapid/core/os/device"
+	"github.com/google/agi/core/os/device"
 )
 
 // Function represents a callable function.

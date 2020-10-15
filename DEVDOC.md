@@ -200,7 +200,7 @@ In Golang:
 ```go
 import (
 	// ...
-	"github.com/google/gapid/core/log"
+	"github.com/google/agi/core/log"
 )
 
 // ...
@@ -329,9 +329,9 @@ BUILD.bazel files to reflect your changes.
 
 A few useful homemade packages:
 
-- `github.com/google/gapid/core/assert` defines an assertion framework.
+- `github.com/google/agi/core/assert` defines an assertion framework.
 
-- `github.com/google/gapid/core/log` lets you create contexts for tests with
+- `github.com/google/agi/core/log` lets you create contexts for tests with
   `ctx := log.Testing(t)`
 
 ### C++

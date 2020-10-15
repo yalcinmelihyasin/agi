@@ -19,7 +19,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/google/gapid/gapis/api"
+	"github.com/google/agi/gapis/api"
 )
 
 // Group is the product of a Grouper.

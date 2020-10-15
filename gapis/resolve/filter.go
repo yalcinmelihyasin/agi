@@ -17,9 +17,9 @@ package resolve
 import (
 	"context"
 
-	"github.com/google/gapid/gapis/api"
-	"github.com/google/gapid/gapis/api/sync"
-	"github.com/google/gapid/gapis/service/path"
+	"github.com/google/agi/gapis/api"
+	"github.com/google/agi/gapis/api/sync"
+	"github.com/google/agi/gapis/service/path"
 )
 
 // CommandFilter is a predicate used for filtering commands.

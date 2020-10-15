@@ -33,7 +33,7 @@ go_library(
         "types.go",
         "value.go",
     ],
-    importpath = "github.com/google/gapid/core/codegen",
+    importpath = "github.com/google/agi/core/codegen",
     visibility = ["//visibility:public"],
     deps = [
         "//core/app/linker:go_default_library",

@@ -20,7 +20,7 @@ go_library(
         "cmdgrouper.go",
         "sequence.go",
     ],
-    importpath = "github.com/google/gapid/gapis/resolve/cmdgrouper",
+    importpath = "github.com/google/agi/gapis/resolve/cmdgrouper",
     visibility = ["//visibility:public"],
     deps = [
         "//core/log:go_default_library",

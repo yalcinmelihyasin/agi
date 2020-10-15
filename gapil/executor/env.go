@@ -20,14 +20,14 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/google/gapid/core/data/slice"
-	"github.com/google/gapid/core/memory/arena"
-	"github.com/google/gapid/gapil/compiler"
-	"github.com/google/gapid/gapis/api"
-	"github.com/google/gapid/gapis/capture"
-	"github.com/google/gapid/gapis/database"
-	"github.com/google/gapid/gapis/memory"
-	"github.com/google/gapid/gapis/stringtable"
+	"github.com/google/agi/core/data/slice"
+	"github.com/google/agi/core/memory/arena"
+	"github.com/google/agi/gapil/compiler"
+	"github.com/google/agi/gapis/api"
+	"github.com/google/agi/gapis/capture"
+	"github.com/google/agi/gapis/database"
+	"github.com/google/agi/gapis/memory"
+	"github.com/google/agi/gapis/stringtable"
 )
 
 // #include "env.h"

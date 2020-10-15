@@ -17,7 +17,7 @@ package codegen
 import (
 	"strings"
 
-	"github.com/google/gapid/core/os/device"
+	"github.com/google/agi/core/os/device"
 )
 
 // TargetTriple returns an LLVM target triple for the given ABI in the form:

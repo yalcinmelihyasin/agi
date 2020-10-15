@@ -19,12 +19,12 @@ import (
 
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/protoc-gen-go/descriptor"
-	"github.com/google/gapid/core/codegen"
-	"github.com/google/gapid/core/data"
-	"github.com/google/gapid/core/text/cases"
-	"github.com/google/gapid/gapil/compiler"
-	"github.com/google/gapid/gapil/semantic"
-	"github.com/google/gapid/gapil/serialization"
+	"github.com/google/agi/core/codegen"
+	"github.com/google/agi/core/data"
+	"github.com/google/agi/core/text/cases"
+	"github.com/google/agi/gapil/compiler"
+	"github.com/google/agi/gapil/semantic"
+	"github.com/google/agi/gapil/serialization"
 )
 
 // entity describes an encodable entity. This includes types, function parameter

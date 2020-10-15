@@ -18,11 +18,11 @@ import (
 	"context"
 
 	"github.com/golang/protobuf/proto"
-	"github.com/google/gapid/core/log"
-	"github.com/google/gapid/gapis/capture"
-	"github.com/google/gapid/gapis/service"
-	"github.com/google/gapid/gapis/service/path"
-	"github.com/google/gapid/gapis/trace"
+	"github.com/google/agi/core/log"
+	"github.com/google/agi/gapis/capture"
+	"github.com/google/agi/gapis/service"
+	"github.com/google/agi/gapis/service/path"
+	"github.com/google/agi/gapis/trace"
 
 	perfetto_pb "protos/perfetto/config"
 )

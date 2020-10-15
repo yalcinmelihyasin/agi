@@ -19,10 +19,10 @@ import (
 	"io"
 	"os"
 
-	"github.com/google/gapid/core/app"
-	"github.com/google/gapid/core/os/device"
-	"github.com/google/gapid/core/os/shell"
-	"github.com/google/gapid/gapis/perfetto"
+	"github.com/google/agi/core/app"
+	"github.com/google/agi/core/os/device"
+	"github.com/google/agi/core/os/shell"
+	"github.com/google/agi/gapis/perfetto"
 )
 
 // Device represents a connection to an attached device.

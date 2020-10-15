@@ -15,9 +15,9 @@
 package test
 
 import (
-	"github.com/google/gapid/core/data/compare"
-	"github.com/google/gapid/core/memory/arena"
-	"github.com/google/gapid/gapis/memory"
+	"github.com/google/agi/core/data/compare"
+	"github.com/google/agi/core/memory/arena"
+	"github.com/google/agi/gapis/memory"
 )
 
 // Cmds holds a number of prebuilt example commands that can be used for tests.

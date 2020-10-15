@@ -19,6 +19,6 @@ go_library(
     srcs = ["call.go"],
     cgo = True,
     clinkopts = [],  # keep
-    importpath = "github.com/google/gapid/core/codegen/call",
+    importpath = "github.com/google/agi/core/codegen/call",
     visibility = ["//visibility:public"],
 )

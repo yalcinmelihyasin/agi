@@ -15,8 +15,8 @@
 package compiler
 
 import (
-	"github.com/google/gapid/core/codegen"
-	"github.com/google/gapid/gapil/semantic"
+	"github.com/google/agi/core/codegen"
+	"github.com/google/agi/gapil/semantic"
 )
 
 func (c *C) doCast(s *S, dstTy, srcTy semantic.Type, v *codegen.Value) *codegen.Value {

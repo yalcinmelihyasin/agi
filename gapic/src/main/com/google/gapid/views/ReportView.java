@@ -140,7 +140,7 @@ public class ReportView extends Composite implements Tab, Capture.Listener, Repo
   }
 
   private Text getDetails() {
-    // Lazy init'ed due to https://github.com/google/gapid/issues/2624
+    // Lazy init'ed due to https://github.com/google/agi/issues/2624
     if (reportDetails == null) {
       reportDetails = new Text(detailsGroup, SWT.MULTI | SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL);
     }

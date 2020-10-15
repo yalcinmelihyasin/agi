@@ -21,7 +21,7 @@ go_library(
         "grpc.go",
         "server.go",
     ],
-    importpath = "github.com/google/gapid/gapis/server",
+    importpath = "github.com/google/agi/gapis/server",
     visibility = ["//visibility:public"],
     deps = [
         "//core/app:go_default_library",

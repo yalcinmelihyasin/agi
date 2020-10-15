@@ -14,7 +14,7 @@
 
 package compiler
 
-import "github.com/google/gapid/core/codegen"
+import "github.com/google/agi/core/codegen"
 
 func (c *C) declareBufferFuncs() {
 	// Note these function names are intentionally different from those declared

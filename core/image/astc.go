@@ -17,8 +17,8 @@ package image
 import (
 	"fmt"
 
-	"github.com/google/gapid/core/math/sint"
-	"github.com/google/gapid/core/stream"
+	"github.com/google/agi/core/math/sint"
+	"github.com/google/agi/core/stream"
 )
 
 func NewASTC(name string, blockWidth, blockHeight uint32, srgb bool) *Format {

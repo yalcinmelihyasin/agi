@@ -14,7 +14,7 @@
 
 package compiler
 
-import "github.com/google/gapid/core/codegen"
+import "github.com/google/agi/core/codegen"
 
 //#include "gapil/runtime/cc/runtime.h"
 import "C"

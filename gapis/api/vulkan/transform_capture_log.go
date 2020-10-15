@@ -18,11 +18,11 @@ import (
 	"context"
 	"os"
 
-	"github.com/google/gapid/core/log"
-	"github.com/google/gapid/core/memory/arena"
-	"github.com/google/gapid/gapis/api"
-	"github.com/google/gapid/gapis/api/transform"
-	"github.com/google/gapid/gapis/capture"
+	"github.com/google/agi/core/log"
+	"github.com/google/agi/core/memory/arena"
+	"github.com/google/agi/gapis/api"
+	"github.com/google/agi/gapis/api/transform"
+	"github.com/google/agi/gapis/capture"
 )
 
 var _ transform.Transform = &captureLog{}

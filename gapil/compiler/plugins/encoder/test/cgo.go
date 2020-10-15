@@ -20,13 +20,13 @@ import "C"
 import (
 	"unsafe"
 
-	"github.com/google/gapid/core/memory/arena"
-	"github.com/google/gapid/gapis/memory/memory_pb"
+	"github.com/google/agi/core/memory/arena"
+	"github.com/google/agi/gapis/memory/memory_pb"
 
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/protoc-gen-go/descriptor"
 
-	pb "github.com/google/gapid/gapil/compiler/plugins/encoder/test/encoder_pb"
+	pb "github.com/google/agi/gapil/compiler/plugins/encoder/test/encoder_pb"
 )
 
 type callbacks []interface{}

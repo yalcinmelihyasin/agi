@@ -27,7 +27,7 @@ go_library(
     ],
     cgo = True,
     clinkopts = [],  # keep
-    importpath = "github.com/google/gapid/gapil/compiler/plugins/encoder",
+    importpath = "github.com/google/agi/gapil/compiler/plugins/encoder",
     visibility = ["//visibility:public"],
     deps = [
         "//core/codegen:go_default_library",

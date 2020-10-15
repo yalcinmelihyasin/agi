@@ -37,7 +37,7 @@ import java.util.logging.Logger;
  * output to fragment shader input by resurrecting the deprecated "varrying" keyword.
  *
  * @see
- * <a href="https://github.com/google/gapid/blob/master/docs/gapic-shaders.md">GAPIC Shaders</a>
+ * <a href="https://github.com/google/agi/blob/master/docs/gapic-shaders.md">GAPIC Shaders</a>
  */
 public class ShaderSource {
   private static final Logger LOG = Logger.getLogger(ShaderSource.class.getName());

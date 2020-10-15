@@ -20,9 +20,9 @@ import (
 	"io"
 	"net"
 
-	"github.com/google/gapid/core/app"
-	"github.com/google/gapid/core/event/task"
-	"github.com/google/gapid/gapis/perfetto/client"
+	"github.com/google/agi/core/app"
+	"github.com/google/agi/core/event/task"
+	"github.com/google/agi/gapis/perfetto/client"
 
 	common "protos/perfetto/common"
 	config "protos/perfetto/config"

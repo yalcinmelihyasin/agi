@@ -20,9 +20,9 @@ import (
 	"fmt"
 	"unsafe"
 
-	"github.com/google/gapid/core/data/compare"
+	"github.com/google/agi/core/data/compare"
 
-	"github.com/google/gapid/core/context/keys"
+	"github.com/google/agi/core/context/keys"
 )
 
 // #include "core/memory/arena/cc/arena.h"

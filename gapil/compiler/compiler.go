@@ -24,13 +24,13 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/google/gapid/core/codegen"
-	"github.com/google/gapid/core/log"
-	"github.com/google/gapid/core/os/device/host"
-	"github.com/google/gapid/core/text/parse/cst"
-	"github.com/google/gapid/gapil/compiler/mangling"
-	"github.com/google/gapid/gapil/compiler/mangling/c"
-	"github.com/google/gapid/gapil/semantic"
+	"github.com/google/agi/core/codegen"
+	"github.com/google/agi/core/log"
+	"github.com/google/agi/core/os/device/host"
+	"github.com/google/agi/core/text/parse/cst"
+	"github.com/google/agi/gapil/compiler/mangling"
+	"github.com/google/agi/gapil/compiler/mangling/c"
+	"github.com/google/agi/gapil/semantic"
 )
 
 //#define QUOTE(x) #x

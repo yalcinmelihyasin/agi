@@ -17,8 +17,8 @@ package cmdgrouper
 import (
 	"context"
 
-	"github.com/google/gapid/core/log"
-	"github.com/google/gapid/gapis/api"
+	"github.com/google/agi/core/log"
+	"github.com/google/agi/gapis/api"
 )
 
 // Rule is a single rule in a sequence grouper.

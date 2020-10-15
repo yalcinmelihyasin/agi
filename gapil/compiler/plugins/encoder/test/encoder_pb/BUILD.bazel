@@ -34,7 +34,7 @@ proto_library(
 # keep
 go_proto_library(
     name = "test_go_proto",
-    importpath = "github.com/google/gapid/gapil/compiler/plugins/encoder/test/encoder_pb",
+    importpath = "github.com/google/agi/gapil/compiler/plugins/encoder/test/encoder_pb",
     proto = ":proto",
     visibility = ["//visibility:public"],
     deps = ["//gapis/memory/memory_pb:go_default_library"],
@@ -44,6 +44,6 @@ go_library(
     name = "go_default_library",
     srcs = ["doc.go"],
     embed = [":test_go_proto"],  # keep
-    importpath = "github.com/google/gapid/gapil/compiler/plugins/encoder/test/encoder_pb",
+    importpath = "github.com/google/agi/gapil/compiler/plugins/encoder/test/encoder_pb",
     visibility = ["//visibility:public"],
 )

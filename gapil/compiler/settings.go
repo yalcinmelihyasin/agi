@@ -15,8 +15,8 @@
 package compiler
 
 import (
-	"github.com/google/gapid/core/os/device"
-	"github.com/google/gapid/gapil/compiler/mangling"
+	"github.com/google/agi/core/os/device"
+	"github.com/google/agi/gapil/compiler/mangling"
 )
 
 // Settings describe the options used to compile an API file.

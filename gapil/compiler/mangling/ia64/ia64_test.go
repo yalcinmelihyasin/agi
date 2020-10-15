@@ -17,10 +17,10 @@ package ia64_test
 import (
 	"testing"
 
-	"github.com/google/gapid/core/assert"
-	"github.com/google/gapid/core/log"
-	"github.com/google/gapid/gapil/compiler/mangling"
-	"github.com/google/gapid/gapil/compiler/mangling/ia64"
+	"github.com/google/agi/core/assert"
+	"github.com/google/agi/core/log"
+	"github.com/google/agi/gapil/compiler/mangling"
+	"github.com/google/agi/gapil/compiler/mangling/ia64"
 )
 
 func TestIA64(t *testing.T) {

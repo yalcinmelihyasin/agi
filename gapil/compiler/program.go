@@ -19,8 +19,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/google/gapid/core/codegen"
-	"github.com/google/gapid/gapil/semantic"
+	"github.com/google/agi/core/codegen"
+	"github.com/google/agi/gapil/semantic"
 )
 
 // Program is the output of a compilation.

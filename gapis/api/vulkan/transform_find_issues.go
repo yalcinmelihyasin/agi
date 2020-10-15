@@ -19,15 +19,15 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/google/gapid/core/log"
-	"github.com/google/gapid/gapir"
-	"github.com/google/gapid/gapis/api"
-	"github.com/google/gapid/gapis/api/transform"
-	"github.com/google/gapid/gapis/capture"
-	"github.com/google/gapid/gapis/memory"
-	"github.com/google/gapid/gapis/replay"
-	"github.com/google/gapid/gapis/replay/builder"
-	"github.com/google/gapid/gapis/service"
+	"github.com/google/agi/core/log"
+	"github.com/google/agi/gapir"
+	"github.com/google/agi/gapis/api"
+	"github.com/google/agi/gapis/api/transform"
+	"github.com/google/agi/gapis/capture"
+	"github.com/google/agi/gapis/memory"
+	"github.com/google/agi/gapis/replay"
+	"github.com/google/agi/gapis/replay/builder"
+	"github.com/google/agi/gapis/service"
 )
 
 const (

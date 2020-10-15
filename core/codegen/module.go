@@ -21,7 +21,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/google/gapid/core/os/device"
+	"github.com/google/agi/core/os/device"
 
 	"llvm/bindings/go/llvm"
 )

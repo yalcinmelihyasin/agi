@@ -18,9 +18,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/google/gapid/core/codegen"
-	"github.com/google/gapid/gapil/ast"
-	"github.com/google/gapid/gapil/semantic"
+	"github.com/google/agi/core/codegen"
+	"github.com/google/agi/gapil/ast"
+	"github.com/google/agi/gapil/semantic"
 )
 
 func (c *C) expression(s *S, e semantic.Expression) (out *codegen.Value) {

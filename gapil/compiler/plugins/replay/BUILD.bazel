@@ -28,7 +28,7 @@ go_library(
         "//gapil/runtime/cc/replay:cc",
     ],
     cgo = True,
-    importpath = "github.com/google/gapid/gapil/compiler/plugins/replay",
+    importpath = "github.com/google/agi/gapil/compiler/plugins/replay",
     visibility = ["//visibility:public"],
     deps = [
         "//core/codegen:go_default_library",

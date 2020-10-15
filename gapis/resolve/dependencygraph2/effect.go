@@ -15,8 +15,8 @@
 package dependencygraph2
 
 import (
-	"github.com/google/gapid/gapis/api"
-	"github.com/google/gapid/gapis/memory"
+	"github.com/google/agi/gapis/api"
+	"github.com/google/agi/gapis/memory"
 )
 
 // Effect is a record of a read or write of a piece of state.

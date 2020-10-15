@@ -14,7 +14,7 @@
 
 package encoder
 
-import "github.com/google/gapid/gapil/compiler"
+import "github.com/google/agi/gapil/compiler"
 
 // Plugin is the encoder plugin for the gapil compiler.
 func Plugin() compiler.Plugin {

@@ -48,7 +48,7 @@ go_library(
     embed = [
         ":generated",  # keep
     ],
-    importpath = "github.com/google/gapid/gapis/api/test",
+    importpath = "github.com/google/agi/gapis/api/test",
     visibility = ["//visibility:public"],
     deps = [
         "//core/data/compare:go_default_library",

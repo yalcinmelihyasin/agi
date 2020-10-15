@@ -22,7 +22,7 @@ import (
 	"bytes"
 	"fmt"
 
-	"github.com/google/gapid/gapil/compiler/mangling"
+	"github.com/google/agi/gapil/compiler/mangling"
 )
 
 // Mangle returns the entity mangled conforming to the IA64 ABI.

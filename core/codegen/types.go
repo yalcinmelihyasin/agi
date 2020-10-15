@@ -22,7 +22,7 @@ import (
 
 	"llvm/bindings/go/llvm"
 
-	"github.com/google/gapid/core/math/sint"
+	"github.com/google/agi/core/math/sint"
 )
 
 // SizeOf returns the size of the type in bytes as a uint64.

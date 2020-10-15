@@ -18,13 +18,13 @@ import (
 	"bytes"
 	"context"
 
-	"github.com/google/gapid/core/data/endian"
-	"github.com/google/gapid/core/data/id"
-	"github.com/google/gapid/core/memory/arena"
-	"github.com/google/gapid/core/os/device"
-	"github.com/google/gapid/gapis/api"
-	"github.com/google/gapid/gapis/memory"
-	"github.com/google/gapid/gapis/replay/builder"
+	"github.com/google/agi/core/data/endian"
+	"github.com/google/agi/core/data/id"
+	"github.com/google/agi/core/memory/arena"
+	"github.com/google/agi/core/os/device"
+	"github.com/google/agi/gapis/api"
+	"github.com/google/agi/gapis/memory"
+	"github.com/google/agi/gapis/replay/builder"
 )
 
 // Cmd is a custom implementation of the api.Cmd interface that simplifies

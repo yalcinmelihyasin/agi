@@ -20,7 +20,7 @@ go_library(
     cdeps = ["//core/memory/arena/cc"],
     cgo = True,
     clinkopts = [],  # keep
-    importpath = "github.com/google/gapid/core/memory/arena",
+    importpath = "github.com/google/agi/core/memory/arena",
     visibility = ["//visibility:public"],
     deps = [
         "//core/context/keys:go_default_library",

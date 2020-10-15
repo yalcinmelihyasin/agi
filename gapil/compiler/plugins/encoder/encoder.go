@@ -20,12 +20,12 @@ import (
 	"fmt"
 
 	"github.com/golang/protobuf/proto"
-	"github.com/google/gapid/core/codegen"
-	"github.com/google/gapid/core/text/cases"
-	"github.com/google/gapid/gapil/compiler"
-	"github.com/google/gapid/gapil/compiler/mangling"
-	"github.com/google/gapid/gapil/semantic"
-	"github.com/google/gapid/gapil/serialization"
+	"github.com/google/agi/core/codegen"
+	"github.com/google/agi/core/text/cases"
+	"github.com/google/agi/gapil/compiler"
+	"github.com/google/agi/gapil/compiler/mangling"
+	"github.com/google/agi/gapil/semantic"
+	"github.com/google/agi/gapil/serialization"
 )
 
 const (

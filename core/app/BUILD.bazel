@@ -30,7 +30,7 @@ go_library(
         "run.go",
         "verbs.go",
     ],
-    importpath = "github.com/google/gapid/core/app",
+    importpath = "github.com/google/agi/core/app",
     visibility = ["//visibility:public"],
     deps = [
         "//core/app/analytics:go_default_library",
