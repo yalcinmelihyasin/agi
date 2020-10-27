@@ -278,8 +278,9 @@ func getProfileTransforms(ctx context.Context,
 	transforms = append(transforms, newProfilingLayers(layerName))
 	transforms = append(transforms, newMappingExporter(ctx, request.handleMappings))
 
-	if request.experiments.DisableAnisotropicFiltering {
-		transforms = append(transforms, newAfDisablerTransform())
+	if request.experiments.DisableAnisotropicFiltering || request.experiments.GenerateMipmaps {
+		transforms = append(transforms, newTextureExperimentsTransform(
+			request.experiments.DisableAnisotropicFiltering, request.experiments.GenerateMipmaps))
 	}
 
 	var err error

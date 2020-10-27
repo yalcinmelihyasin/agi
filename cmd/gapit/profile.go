@@ -34,8 +34,9 @@ type profileVerb struct{ GpuProfileFlags }
 
 func init() {
 	verb := &profileVerb{GpuProfileFlags{
-		DisabledCmds: []flags.U64Slice{},
-		DisableAF:    false,
+		DisabledCmds:    []flags.U64Slice{},
+		DisableAF:       false,
+		GenerateMipmaps: false,
 	}}
 	app.AddVerb(&app.Verb{
 		Name:      "profile",
@@ -83,6 +84,7 @@ func (verb *profileVerb) Run(ctx context.Context, flags flag.FlagSet) error {
 		Experiments: &service.ProfileExperiments{
 			DisabledCommands:            commands,
 			DisableAnisotropicFiltering: verb.DisableAF,
+			GenerateMipmaps:             verb.GenerateMipmaps,
 		},
 	}
 

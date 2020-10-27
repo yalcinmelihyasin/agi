@@ -1314,6 +1314,7 @@ message VulkanHandleMappingItem {
 message ProfileExperiments {
   repeated path.Command disabledCommands = 1;
   bool disableAnisotropicFiltering = 2;
+  bool generateMipmaps = 3;
 }
 
 message GpuProfileResponse {

@@ -108,6 +108,7 @@ func GpuProfile(ctx context.Context, capturePath *path.Capture, device *path.Dev
 		profilingExperiments := ProfileExperiments{
 			DisabledCmds:                disabledCmdsIndices,
 			DisableAnisotropicFiltering: experiments.DisableAnisotropicFiltering,
+			GenerateMipmaps:             experiments.GenerateMipmaps,
 		}
 
 		mgr := GetManager(ctx)

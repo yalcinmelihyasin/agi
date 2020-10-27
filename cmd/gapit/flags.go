@@ -422,11 +422,12 @@ type (
 	}
 
 	GpuProfileFlags struct {
-		Gapis        GapisFlags
-		Gapir        GapirFlags
-		Json         bool             `help:"Return replay profiling data as JSON instead of text"`
-		DisabledCmds []flags.U64Slice `help:"command/subcommand index (e.g. '[123, 0, 0, 4]') for disabling a draw call (repeatable)"`
-		DisableAF    bool             `help:"Disable Anisotropic Filtering for all samplers"`
+		Gapis           GapisFlags
+		Gapir           GapirFlags
+		Json            bool             `help:"Return replay profiling data as JSON instead of text"`
+		DisabledCmds    []flags.U64Slice `help:"command/subcommand index (e.g. '[123, 0, 0, 4]') for disabling a draw call (repeatable)"`
+		DisableAF       bool             `help:"Disable Anisotropic Filtering for all samplers"`
+		GenerateMipmaps bool             `help:"Generate mipmaps for all textures"`
 	}
 
 	CreateGraphVisualizationFlags struct {

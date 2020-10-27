@@ -106,4 +106,5 @@ type Issue struct {
 type ProfileExperiments struct {
 	DisabledCmds                [][]uint64
 	DisableAnisotropicFiltering bool
+	GenerateMipmaps             bool
 }

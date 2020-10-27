@@ -17,59 +17,68 @@ package vulkan
 import (
 	"context"
 
+	"github.com/google/gapid/core/log"
 	"github.com/google/gapid/gapis/api"
 	"github.com/google/gapid/gapis/api/transform"
 	"github.com/google/gapid/gapis/memory"
 )
 
-// afDisablerTransform implements the Transform interface to disable anisotropic
-// during every vkCreateSampler call
-type afDisablerTransform struct {
-	allocations *allocationTracker
+type textureExperiments struct {
+	allocations     *allocationTracker
+	disableAF       bool
+	generateMipmaps bool
 }
 
-func newAfDisablerTransform() *afDisablerTransform {
-	return &afDisablerTransform{
-		allocations: nil,
+func newTextureExperimentsTransform(disableAF bool, generateMipmaps bool) *textureExperiments {
+	return &textureExperiments{
+		allocations:     nil,
+		disableAF:       disableAF,
+		generateMipmaps: generateMipmaps,
 	}
 }
 
-func (afDisabler *afDisablerTransform) RequiresAccurateState() bool {
+func (experiment *textureExperiments) RequiresAccurateState() bool {
 	return false
 }
 
-func (afDisabler *afDisablerTransform) RequiresInnerStateMutation() bool {
+func (experiment *textureExperiments) RequiresInnerStateMutation() bool {
 	return false
 }
 
-func (afDisabler *afDisablerTransform) SetInnerStateMutationFunction(mutator transform.StateMutator) {
+func (experiment *textureExperiments) SetInnerStateMutationFunction(mutator transform.StateMutator) {
 	// This transform does not require inner state mutation
 }
 
-func (afDisabler *afDisablerTransform) BeginTransform(ctx context.Context, inputState *api.GlobalState) error {
-	afDisabler.allocations = NewAllocationTracker(inputState)
+func (experiment *textureExperiments) BeginTransform(ctx context.Context, inputState *api.GlobalState) error {
+	experiment.allocations = NewAllocationTracker(inputState)
 	return nil
 }
 
-func (afDisabler *afDisablerTransform) ClearTransformResources(ctx context.Context) {
-	afDisabler.allocations.FreeAllocations()
+func (experiment *textureExperiments) ClearTransformResources(ctx context.Context) {
+	experiment.allocations.FreeAllocations()
 }
 
-func (afDisabler *afDisablerTransform) TransformCommand(ctx context.Context, id transform.CommandID, inputCommands []api.Cmd, inputState *api.GlobalState) ([]api.Cmd, error) {
+func (experiment *textureExperiments) TransformCommand(ctx context.Context, id transform.CommandID, inputCommands []api.Cmd, inputState *api.GlobalState) ([]api.Cmd, error) {
+	outputCmds := make([]api.Cmd, 0, len(inputCommands))
 	for i, cmd := range inputCommands {
-		if cmd, ok := cmd.(*VkCreateSampler); ok {
-			inputCommands[i] = afDisabler.disableAFInSamplerCreation(ctx, cmd, inputState)
+		switch typedCmd := cmd.(type) {
+		case *VkCreateSampler:
+			outputCmds = append(outputCmds, experiment.modifySamplerCreation(ctx, id, typedCmd, inputState))
+		case *VkCreateImage:
+			outputCmds = append(outputCmds, experiment.modifyImageCreation(ctx, id, typedCmd, inputState)...)
+		default:
+			outputCmds = append(outputCmds, cmd)
 		}
 	}
 
-	return inputCommands, nil
+	return outputCmds, nil
 }
 
-func (afDisabler *afDisablerTransform) EndTransform(ctx context.Context, inputState *api.GlobalState) ([]api.Cmd, error) {
+func (experiment *textureExperiments) EndTransform(ctx context.Context, inputState *api.GlobalState) ([]api.Cmd, error) {
 	return nil, nil
 }
 
-func (afDisabler *afDisablerTransform) disableAFInSamplerCreation(ctx context.Context, cmd *VkCreateSampler, inputState *api.GlobalState) api.Cmd {
+func (experiment *textureExperiments) modifySamplerCreation(ctx context.Context, id transform.CommandID, cmd *VkCreateSampler, inputState *api.GlobalState) api.Cmd {
 	cmd.Extras().Observations().ApplyReads(inputState.Memory.ApplicationPool())
 
 	pAlloc := memory.Pointer(cmd.PAllocator())
@@ -77,8 +86,32 @@ func (afDisabler *afDisablerTransform) disableAFInSamplerCreation(ctx context.Co
 
 	pInfo := cmd.PCreateInfo()
 	info := pInfo.MustRead(ctx, cmd, inputState, nil)
-	info.SetAnisotropyEnable(VkBool32(0))
-	newInfo := afDisabler.allocations.AllocDataOrPanic(ctx, info)
+
+	if experiment.disableAF {
+		log.I(ctx, "Anisotropy disabled for VKCreateSampler[%v]", id)
+		info.SetAnisotropyEnable(VkBool32(0))
+	}
+
+	// Melih TODO: How To check PNext type?
+	// We have to check if VkSamplerYcbcrConversionCreateInfo exists.
+
+	if experiment.generateMipmaps {
+		if info.UnnormalizedCoordinates() != VkBool32(0) {
+			info.SetMipmapMode(VkSamplerMipmapMode_VK_SAMPLER_MIPMAP_MODE_NEAREST)
+			info.SetMinLod(0.0)
+			info.SetMaxLod(0.0)
+			info.SetMinFilter(VkFilter_VK_FILTER_NEAREST)
+			info.SetMagFilter(VkFilter_VK_FILTER_NEAREST)
+		} else {
+			info.SetMipmapMode(VkSamplerMipmapMode_VK_SAMPLER_MIPMAP_MODE_NEAREST)
+			info.SetMinLod(0.0)
+			info.SetMaxLod(0.25)
+			info.SetMinFilter(VkFilter_VK_FILTER_NEAREST)
+			info.SetMagFilter(VkFilter_VK_FILTER_LINEAR)
+		}
+	}
+
+	newInfo := experiment.allocations.AllocDataOrPanic(ctx, info)
 
 	cb := CommandBuilder{Thread: cmd.Thread(), Arena: inputState.Arena}
 	newCmd := cb.VkCreateSampler(cmd.Device(), newInfo.Ptr(), pAlloc, pSampler, cmd.Result())
@@ -88,4 +121,15 @@ func (afDisabler *afDisablerTransform) disableAFInSamplerCreation(ctx context.Co
 	}
 
 	return cmd
+}
+
+func (experiment *textureExperiments) modifyImageCreation(ctx context.Context, id transform.CommandID, cmd *VkCreateImage, inputState *api.GlobalState) []api.Cmd {
+	cmd.Extras().Observations().ApplyReads(inputState.Memory.ApplicationPool())
+	pInfo := cmd.PCreateInfo()
+	info := pInfo.MustRead(ctx, cmd, inputState, nil)
+
+	width := info.Extent().Width()
+	height := info.Extent().Height()
+
+	return []api.Cmd{cmd}
 }
