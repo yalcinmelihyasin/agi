@@ -26,16 +26,25 @@ import (
 const mipLevels = 100
 
 type textureExperiments struct {
-	allocations     *allocationTracker
 	disableAF       bool
 	generateMipmaps bool
+
+	allocations         *allocationTracker
+	pool                VkCommandPool
+	stateMutator        transform.StateMutator
+	readMemoriesForCmd  []*api.AllocResult
+	writeMemoriesForCmd []*api.AllocResult
 }
 
 func newTextureExperimentsTransform(disableAF bool, generateMipmaps bool) *textureExperiments {
 	return &textureExperiments{
-		allocations:     nil,
-		disableAF:       disableAF,
-		generateMipmaps: generateMipmaps,
+		disableAF:           disableAF,
+		generateMipmaps:     generateMipmaps,
+		allocations:         nil,
+		pool:                VkCommandPool(0),
+		stateMutator:        nil,
+		readMemoriesForCmd:  []*api.AllocResult{},
+		writeMemoriesForCmd: []*api.AllocResult{},
 	}
 }
 
@@ -44,11 +53,11 @@ func (experiment *textureExperiments) RequiresAccurateState() bool {
 }
 
 func (experiment *textureExperiments) RequiresInnerStateMutation() bool {
-	return false
+	return true
 }
 
 func (experiment *textureExperiments) SetInnerStateMutationFunction(mutator transform.StateMutator) {
-	// This transform does not require inner state mutation
+	experiment.stateMutator = mutator
 }
 
 func (experiment *textureExperiments) BeginTransform(ctx context.Context, inputState *api.GlobalState) error {
@@ -67,7 +76,11 @@ func (experiment *textureExperiments) TransformCommand(ctx context.Context, id t
 		case *VkCreateSampler:
 			outputCmds = append(outputCmds, experiment.modifySamplerCreation(ctx, id, typedCmd, inputState))
 		case *VkCreateImage:
-			outputCmds = append(outputCmds, experiment.modifyImageCreation(ctx, id, typedCmd, inputState))
+			newCmds, err := experiment.modifyImageCreation(ctx, id, typedCmd, inputState)
+			if err != nil {
+				return nil, err
+			}
+			outputCmds = append(outputCmds, newCmds...)
 		case *VkCreateImageView:
 			outputCmds = append(outputCmds, experiment.modifyImageViewCreation(ctx, id, typedCmd, inputState))
 		case *VkCmdPipelineBarrier:
@@ -137,12 +150,12 @@ func (experiment *textureExperiments) modifySamplerCreation(ctx context.Context,
 		newCmd.AddWrite(w.Range, w.ID)
 	}
 
-	return cmd
+	return newCmd
 }
 
-func (experiment *textureExperiments) modifyImageCreation(ctx context.Context, id transform.CommandID, cmd *VkCreateImage, inputState *api.GlobalState) api.Cmd {
+func (experiment *textureExperiments) modifyImageCreation(ctx context.Context, id transform.CommandID, cmd *VkCreateImage, inputState *api.GlobalState) ([]api.Cmd, error) {
 	if !experiment.generateMipmaps {
-		return cmd
+		return []api.Cmd{cmd}, nil
 	}
 
 	cmd.Extras().Observations().ApplyReads(inputState.Memory.ApplicationPool())
@@ -156,7 +169,7 @@ func (experiment *textureExperiments) modifyImageCreation(ctx context.Context, i
 	if info.MipLevels() != 0 {
 		// Mipmaps are already enabled
 		// Melih TODO: Is this safe as reads already happened?
-		return cmd
+		return []api.Cmd{cmd}, nil
 	}
 	info.SetMipLevels(mipLevels)
 	newInfo := experiment.allocations.AllocDataOrPanic(ctx, info)
@@ -169,8 +182,11 @@ func (experiment *textureExperiments) modifyImageCreation(ctx context.Context, i
 		newCmd.AddWrite(w.Range, w.ID)
 	}
 
+	// if err := experiment.generateMipmapsForImage(ctx, id, newCmd, inputState); err != nil {
+	// 	return nil, err
+	// }
 	log.I(ctx, "Mipmaps set for Image at cmd %v", id)
-	return cmd
+	return []api.Cmd{newCmd}, nil
 }
 
 func (experiment *textureExperiments) modifyImageViewCreation(ctx context.Context, id transform.CommandID, cmd *VkCreateImageView, inputState *api.GlobalState) api.Cmd {
@@ -206,7 +222,7 @@ func (experiment *textureExperiments) modifyImageViewCreation(ctx context.Contex
 	}
 
 	log.I(ctx, "Mipmaps set for ImageView at cmd %v", id)
-	return cmd
+	return newCmd
 }
 
 func (experiment *textureExperiments) modifyCmdPipelineBarrier(ctx context.Context, id transform.CommandID, cmd *VkCmdPipelineBarrier, inputState *api.GlobalState) api.Cmd {
@@ -215,6 +231,11 @@ func (experiment *textureExperiments) modifyCmdPipelineBarrier(ctx context.Conte
 	}
 
 	cmd.Extras().Observations().ApplyReads(inputState.Memory.ApplicationPool())
+
+	if cmd.ImageMemoryBarrierCount() == 0 {
+		return cmd
+	}
+
 	imageMemoryBarriers := cmd.PImageMemoryBarriers().
 		Slice(0, uint64(cmd.ImageMemoryBarrierCount()), inputState.MemoryLayout).
 		MustRead(ctx, cmd, inputState, nil)
@@ -259,4 +280,150 @@ func (experiment *textureExperiments) modifyCmdPipelineBarrier(ctx context.Conte
 
 	log.I(ctx, "Mipmaps set for pipeline barrier at cmd %v", id)
 	return newCmd
+}
+
+func (experiment *textureExperiments) generateMipmapsForImage(ctx context.Context, id transform.CommandID, cmd *VkCreateImage, inputState *api.GlobalState) error {
+	// Melih TODO: Should we check if vkCmdBlitImage supported
+
+	cb := CommandBuilder{Thread: cmd.Thread(), Arena: inputState.Arena}
+
+	if experiment.pool == VkCommandPool(0) {
+		queueObj := experiment.getQueue(ctx, cmd, inputState)
+		if queueObj == NilQueueObjectʳ {
+			return log.Errf(ctx, nil, "Graphics Queue could not found")
+		}
+
+		commandPool, err := experiment.getNewCommandPool(ctx, cb, queueObj, inputState)
+		if commandPool == VkCommandPool(0) || err != nil {
+			return log.Errf(ctx, err, "Command Pool could not be created")
+		}
+		experiment.pool = commandPool
+	}
+
+	cmds, cmdBufferID := experiment.getNewCommandBuffer(ctx, cb, cmd.Device(), experiment.pool, inputState)
+	// Melih TODO: Do the actual stuff
+	cmds = append(cmds, cb.VkEndCommandBuffer(cmdBufferID, VkResult_VK_SUCCESS))
+
+	for _, cmd := range cmds {
+		if err := experiment.writeCommand(cmd); err != nil {
+			return log.Errf(ctx, err, "Cmd could not mutated [%v]", cmd)
+		}
+	}
+
+	return nil
+}
+
+func (experiment *textureExperiments) getNewCommandBuffer(ctx context.Context,
+	cb CommandBuilder,
+	device VkDevice,
+	commandPool VkCommandPool,
+	inputState *api.GlobalState) ([]api.Cmd, VkCommandBuffer) {
+	commandBufferAllocateInfo := NewVkCommandBufferAllocateInfo(inputState.Arena,
+		VkStructureType_VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO, // sType
+		NewVoidᶜᵖ(memory.Nullptr),                                      // pNext
+		commandPool,                                                    // commandPool
+		VkCommandBufferLevel_VK_COMMAND_BUFFER_LEVEL_PRIMARY,           // level
+		1, // commandBufferCount
+	)
+
+	commandBufferAllocateInfoData := experiment.allocations.AllocDataOrPanic(ctx, commandBufferAllocateInfo)
+	commandBufferID := VkCommandBuffer(newUnusedID(true,
+		func(x uint64) bool {
+			ok := GetState(inputState).CommandBuffers().Contains(VkCommandBuffer(x))
+			return ok
+		}))
+	commandBufferData := experiment.allocations.AllocDataOrPanic(ctx, commandBufferID)
+
+	beginCommandBufferInfo := NewVkCommandBufferBeginInfo(inputState.Arena,
+		VkStructureType_VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO, // sType
+		0, // pNext
+		VkCommandBufferUsageFlags(VkCommandBufferUsageFlagBits_VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT), // flags
+		0, // pInheritanceInfo
+	)
+	beginCommandBufferInfoData := experiment.allocations.AllocDataOrPanic(ctx, beginCommandBufferInfo)
+
+	outputCmds := make([]api.Cmd, 0)
+
+	outputCmds = append(outputCmds,
+		cb.VkAllocateCommandBuffers(
+			device,
+			commandBufferAllocateInfoData.Ptr(),
+			commandBufferData.Ptr(),
+			VkResult_VK_SUCCESS,
+		).AddRead(
+			commandBufferAllocateInfoData.Data(),
+		).AddWrite(
+			commandBufferData.Data(),
+		),
+		cb.VkBeginCommandBuffer(
+			commandBufferID,
+			beginCommandBufferInfoData.Ptr(),
+			VkResult_VK_SUCCESS,
+		).AddRead(
+			beginCommandBufferInfoData.Data(),
+		),
+	)
+
+	return outputCmds, commandBufferID
+}
+
+func (experiment *textureExperiments) getNewCommandPool(ctx context.Context, cb CommandBuilder, queue QueueObjectʳ, inputState *api.GlobalState) (VkCommandPool, error) {
+	commandPool := VkCommandPool(newUnusedID(false, func(x uint64) bool {
+		return GetState(inputState).CommandPools().Contains(VkCommandPool(x))
+	}))
+
+	poolCreateInfo := NewVkCommandPoolCreateInfo(inputState.Arena,
+		VkStructureType_VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO,                                 // sType
+		NewVoidᶜᵖ(memory.Nullptr),                                                                  // pNext
+		VkCommandPoolCreateFlags(VkCommandPoolCreateFlagBits_VK_COMMAND_POOL_CREATE_TRANSIENT_BIT), // flags
+		queue.Family(), // queueFamilyIndex
+	)
+
+	newCmd := cb.VkCreateCommandPool(
+		queue.Device(),
+		experiment.mustAllocReadDataForCmd(ctx, inputState, poolCreateInfo).Ptr(),
+		memory.Nullptr,
+		experiment.mustAllocWriteDataForCmd(ctx, inputState, commandPool).Ptr(),
+		VkResult_VK_SUCCESS,
+	)
+
+	if err := experiment.observeAndWriteCommand(newCmd); err != nil {
+		return VkCommandPool(0), log.Err(ctx, err, "Failed during creating command pool")
+	}
+	return commandPool, nil
+}
+
+func (experiment *textureExperiments) getQueue(ctx context.Context, cmd *VkCreateImage, inputState *api.GlobalState) QueueObjectʳ {
+	return NilQueueObjectʳ
+}
+
+func (experiment *textureExperiments) observeAndWriteCommand(cmd api.Cmd) error {
+	for _, mem := range experiment.readMemoriesForCmd {
+		cmd.Extras().GetOrAppendObservations().AddRead(mem.Data())
+	}
+	for _, mem := range experiment.writeMemoriesForCmd {
+		cmd.Extras().GetOrAppendObservations().AddWrite(mem.Data())
+	}
+	experiment.readMemoriesForCmd = []*api.AllocResult{}
+	experiment.writeMemoriesForCmd = []*api.AllocResult{}
+
+	return experiment.writeCommand(cmd)
+}
+
+func (experiment *textureExperiments) mustAllocReadDataForCmd(ctx context.Context, g *api.GlobalState, v ...interface{}) api.AllocResult {
+	allocateResult := experiment.allocations.AllocDataOrPanic(ctx, v...)
+	experiment.readMemoriesForCmd = append(experiment.readMemoriesForCmd, &allocateResult)
+	rng, id := allocateResult.Data()
+	g.Memory.ApplicationPool().Write(rng.Base, memory.Resource(id, rng.Size))
+	return allocateResult
+}
+
+func (experiment *textureExperiments) mustAllocWriteDataForCmd(ctx context.Context, g *api.GlobalState, v ...interface{}) api.AllocResult {
+	allocateResult := experiment.allocations.AllocDataOrPanic(ctx, v...)
+	experiment.writeMemoriesForCmd = append(experiment.writeMemoriesForCmd, &allocateResult)
+	return allocateResult
+}
+
+func (experiment *textureExperiments) writeCommand(cmd api.Cmd) error {
+	return experiment.stateMutator([]api.Cmd{cmd})
 }
